@@ -12,13 +12,13 @@
 ## 配置
 1. client.conf 配置Tracker_server为FastDfs IP
 2. db.properties 数据库配置
-3. image.properties 图片服务器访问地址前缀,如http://47.104.251.24
+3. image.properties 图片服务器访问地址前缀,如http://47.104.251.24/
 4. 需要自己maven install fastdfs_client Jar包,参考如下:
-```
-<groupId>fastdfs_client</groupId>
-<artifactId>fastdfs_client</artifactId>
-<version>1.25</version>
-```
+    ```
+    <groupId>fastdfs_client</groupId>
+    <artifactId>fastdfs_client</artifactId>
+    <version>1.25</version>
+    ```
 
 ## 运行
 1. 默认地址：http://127.0.0.1:8080/
