@@ -1,0 +1,91 @@
+#revertBox{
+	
+}
+#revertBox #revertList{
+	margin-top: 20px;
+	border-bottom: 1px dashed #c0c0c0;
+	overflow: hidden;
+}
+#revertBox #revertList #revertLeft{
+	width: 10%;
+	float:left;
+}
+#revertBox #revertList #revertLeft img{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	margin-bottom: 30px;
+}
+#revertBox #revertList #revertRight{
+	float:left;
+	width: 90%;
+}
+#revertBox #revertList #revertRight #userName{
+	color: #99cc66;
+	font-size: 14px;
+}
+#revertBox #revertList #revertRight #floor{
+	font-size: 12px;
+	float: right;
+	color: #c0c0c0;
+}
+#revertBox #revertList #revertRight #revertContext{
+	font-size: 14px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	color: #757373;
+}
+#revertBox #revertList #revertRight #revertTime{
+	font-size: 12px;
+	color: #c0c0c0;
+}
+#pages{
+	margin-top: 20px;
+	font-size: 14px;
+	color: #999;
+}
+#loginTip{
+	width: 100%;
+	height: 120px;
+	line-height: 120px;
+	text-align: center;
+	font-size: 14px;
+	color: #999;
+}
+#loginTip span{
+	
+}
+#loginTip span a{
+	color: #555555;
+}
+#loginTip span a:hover{
+	color: #4263ad;
+}
+#revertTip{
+	color:red;
+	font-size: 14px;
+}
+#tags{
+	font-size: 14px;
+	color:#555555;
+	margin-top: 10px;
+}
+#tags a{
+	font-size: 14px;
+	color:#555555;
+}
+#tags a:hover{
+	color:#88afd8;
+}
+@media only screen and (max-width: 900px){
+	#revertBox #revertList #revertRight{
+		width: 80%;
+	}
+	#revertBox #revertList #revertLeft{
+		width: 20%;
+	}
+	#revertBox #revertList #revertLeft img{
+		width: 40px;
+		height: 40px;
+	}
+}

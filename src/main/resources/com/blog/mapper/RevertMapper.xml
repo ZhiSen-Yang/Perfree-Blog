@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blog.mapper.RevertMapper">
+
+
+    <!-- 批量定义别名 -->
+    
+	<!-- 根据文章id获取评论列表 -->
+	<select id="getRevertList" resultType="com.blog.pojo.RevertCustom">
+		SELECT
+			revert.context,
+			revert.articleId,
+			revert.createTime,
+			revert.id,
+			revert.userId,
+			`user`.image,
+			`user`.nickname
+		FROM
+			revert
+		LEFT JOIN `user` ON revert.userId = `user`.id
+		WHERE
+			revert.articleId = #{id}
+			ORDER BY revert.createTime ASC
+	</select>
+	<!-- 删除评论 -->
+	<delete id="deleteRevert" parameterType="long">
+		DELETE
+		FROM
+			revert
+		WHERE
+			id = #{id}
+	</delete>
+	<!-- 添加评论 -->
+	<insert id="addRevert" parameterType="com.blog.pojo.Revert">
+		INSERT INTO revert (context,createTime, articleId, userId)
+		VALUES
+			(
+				#{context},
+				#{createTime},
+				#{articleId},
+				#{userId}
+			)
+	</insert>
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blog.mapper.ContentMapper">
+
+	<!-- 添加轮播图 -->
+	<insert id="addContent" parameterType="string">
+		INSERT INTO content (imageUrl)
+		VALUES
+			(
+				#{imageUrl}
+			)
+	</insert>
+	
+	<!-- 获取所有轮播图列表 -->
+	<select id="getAllContents" resultType="com.blog.pojo.Content">
+		SELECT
+			id,
+			imageUrl
+		FROM
+			content;
+	</select>
+	
+	<!-- 删除轮播图 -->
+	<delete id="deleteContent" parameterType="int">
+		DELETE
+		FROM
+			content
+		WHERE
+			id = #{id}
+	</delete>
+	
+	<!-- 批量删除轮播图 -->
+	<delete id="deleteContents" parameterType="list">
+		DELETE
+		FROM
+			content
+		WHERE
+			id IN 
+		<foreach collection="list" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+</mapper>

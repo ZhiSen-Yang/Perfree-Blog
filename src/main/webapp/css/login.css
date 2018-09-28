@@ -1,0 +1,225 @@
+body{
+	font-size: 12px;
+}
+.sigin_content{
+	width:640px;
+	margin: 0 auto;
+	padding-top: 90px;
+
+}
+
+.tab_wrap_pc{
+	display:block;
+
+}
+
+.tab_wrap{
+	width:234px;
+	margin:8px auto 14px;
+}
+.cf{
+	display:block;
+	zoom:1;
+}
+.cf:after{
+	content: "";
+	display:block;
+	height:0;
+	clear: both;
+	visibility: hidden;
+}
+
+.current_tab{
+	color:#4a90e2;
+	font-size: 20px;
+	font-weight:bold;
+	line-height: 36px;
+}
+
+.one_tab{
+	color:#bfbfbf;
+	font-size: 24px;
+	line-height: 36px;
+}
+
+
+a{
+	text-decoration: none;
+}
+
+.fl{
+	float: left;
+	display:inline;
+}
+
+.fr{
+	float:right;
+	display:inline;
+}
+
+.one_tab_fence{
+	border-left: 1px solid #bfbfbf;
+	height:28px;
+	margin:4px 0 0 10px;
+	padding-left: 10px;
+}
+
+.main_content{
+	width:320px;
+	padding-right: 50px;
+	margin: auto;
+
+}
+
+
+.inner_wrap{
+	padding:0 20px;
+}
+
+.input{
+	height:40px;
+	border:1px solid #d2d2d2;
+	border-radius:6px;
+	margin-bottom:15px;
+	position: relative;
+}
+
+.input input{
+	border:0 none;
+	width:258px;
+	line-height: 20px;
+	padding:10px;
+	height:20px;
+	color:#555;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+}
+
+.error_info{
+	position:absolute;
+	width:240px;
+	text-align:left;
+	right:35px;
+	top:41px;
+	font-size:14px;
+	color:#e27c6f;
+	line-height:22px;
+}
+
+.legal_input{
+	position:absolute;
+	right:-35px;
+	top:11px;
+}
+
+.phone_code_wrap{
+	position:relative;
+}
+.input{
+	height:40px;
+	border:1px solid #d2d2d2;
+	-webkit-border-radius:6px;
+	border-radius: 6px;
+	margin-bottom: 25px;
+	position:relative;
+}
+
+#text_code{
+	width:118px;
+}
+
+.input input{
+	border:0 none;
+	line-height: 20px;
+	padding:10px;
+	height:20px;
+	color:#555;
+	-webkit-border-radius:6px;
+	border-radius: 6px;
+}
+
+.get_code_login{
+	background: #897d6b;
+	line-height: 42px;
+	width:130px;
+	text-align: center;
+	color:#fff;
+	font-size: 14px;
+}
+
+.border-radius-6{
+	-webkit-border-radius:6px;
+	border-radius: 6px;
+}
+
+.voice_code_wrap{
+	color:#555;
+	margin-bottom: 10px;
+}
+
+.voice_code{
+	color:#968c87;
+}
+
+a{
+	text-decoration:none;
+}
+
+.submit{
+	display:block;
+	background:#ec6817;
+	background-image:linear-gradient(to bottom,#ef8214,#ec6817);
+	border:0 none;
+	width:280px;
+	text-align: center;
+	height:40px;
+	line-height: 40px;
+	color:#fff;
+	font-size: 16px;
+	cursor: pointer;
+	-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.4);
+	box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+	margin:0 0 30px;
+}
+
+.border-radius-6{
+	-webkit-border-radius:6px;
+	border-radius: 6px;
+}
+
+.change_phone{
+	color:#4a4a4a;
+	font-size: 13px;
+}
+
+.change_phone a{
+	color:#f86c34;
+}
+
+.weixin_wrap{
+	font-size: 12px;
+	width:200px;
+	float:left;
+	margin-left: 50px;
+}
+
+.weixin_box{
+	-webkit-border-radius:6px;
+	border-radius: 6px;
+	-webkit-box-shadow:0 0 7px rgba(200,200,200,0.75);
+	box-shadow: 0 0 7px rgba(200,200,200,0.75);
+	overflow: hidden;
+	margin:0 auto;
+	border:1px solid #c9ccd0;
+}
+
+.wechat_refresh{
+	font-size: 14px;
+	display:inline-block;
+	text-align: center;
+	margin-top: 5px;
+}
+
+.wechat_refresh span{
+	color:red;
+}

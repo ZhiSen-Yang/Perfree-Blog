@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blog.mapper.TagMapper">
+
+
+    <!-- 批量定义别名 -->
+    
+	<!-- 获取所有标签 -->
+	<select id="getTags" resultType="com.blog.pojo.Tag">
+		SELECT
+		  id,
+			name
+		FROM
+			tag
+	</select>
+	
+	
+	<!-- 添加标签 -->
+	<insert id="addTag" parameterType="string">
+		INSERT INTO tag (NAME)
+		VALUES
+			(#{name});
+	</insert>
+	
+
+	<!-- 编辑标签 -->
+	<update id="updateTag" parameterType="com.blog.pojo.Tag">
+		UPDATE tag
+		SET NAME = #{name}
+		WHERE
+			id = #{id}
+	</update>
+	
+	
+	<!-- 删除标签 -->
+	<delete id="deleteTag" parameterType="long">
+		DELETE
+		FROM
+			tag
+		WHERE
+			id = #{id}
+	</delete>
+	
+	
+	<!-- 批量删除标签 -->
+	<delete id="deleteTags" parameterType="list">
+		DELETE
+		FROM
+			tag
+		WHERE
+			id IN 
+		<foreach collection="list" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+	<!-- 根据id获取标签信息 -->
+	<select id="getTagById" parameterType="long" resultType="com.blog.pojo.Tag">
+		SELECT
+			id,
+			`name`
+		FROM
+			tag
+		WHERE
+			id = #{id}
+	</select>
+	<!-- 根据文章id获取标签列表 -->
+	<select id="getArticleTags" parameterType="string" resultType="com.blog.pojo.Tag">
+		SELECT
+			tag.id,
+			tag.`name`
+		FROM
+			article_tag
+		LEFT JOIN tag ON article_tag.tagId = tag.id
+		WHERE
+			article_tag.articleId = #{id}
+	</select>
+</mapper>

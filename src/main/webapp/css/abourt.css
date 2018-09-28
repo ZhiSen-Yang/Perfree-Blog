@@ -1,0 +1,48 @@
+#abourtBox{
+	width: 90%;
+	margin: auto;
+	overflow: hidden;
+}
+#abourtBox #leftBox{
+	float: left;
+	width: 20%;
+	text-align: center;
+}
+#abourtBox #rightBox{
+	float: left;
+	width: 80%;
+	border-left: 1px solid #d0cccc;
+	padding-left: 10px;
+	
+}
+#abourtBox #leftBox img{
+	width: 80%;
+	height: 80%;
+}
+#abourtBox #leftBox #myName{
+	font-size: 15px;
+	color: #676363;
+	font-weight: bold;
+}
+#abourtBox #rightBox #absBox{
+	font-size: 14px;
+	color: #676363;
+	margin-top: 10px;
+	line-height: 30px;
+}
+#abourtBox #rightBox #city,#abourtBox #rightBox #weibo,#abourtBox #rightBox #qq,#abourtBox #rightBox #github{
+	font-size: 14px;
+	color: #676363;
+	line-height: 30px;
+}
+@media only screen and (max-width:900px){
+	#abourtBox{
+		width: 100%;
+	}
+	#abourtBox #leftBox img{
+		width: 90%;
+	}
+	#abourtBox #leftBox #myName{
+		font-weight: normal;
+	}
+}

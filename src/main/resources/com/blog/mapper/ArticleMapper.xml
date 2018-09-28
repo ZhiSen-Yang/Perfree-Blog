@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blog.mapper.ArticleMapper">
+	<!-- article字段  sql片段 -->
+	<sql id="articleList" >
+			id,
+			title,
+			imageUrl,
+			context,
+			createTime,
+			updateTime,
+			boardId,
+			pageView,
+			stick
+	</sql>
+
+	<!--article 自定义结果sql片段 -->
+	<sql id="articleCustomList">
+		article.id,
+		article.title,
+		article.boardId,
+		article.context,
+		article.createTime,
+		article.imageUrl,
+		article.revertNum,
+		article.pageView,
+		article.stick,
+		article.updateTime,
+		board.`name` boardName
+	</sql>
+	<!--添加文章  -->
+	<insert id="addArticle" parameterType="com.blog.pojo.Article">
+	INSERT INTO article (
+			<include refid="articleList"></include>
+		)
+		VALUES
+			(
+				#{id},
+				#{title},
+				#{imageUrl},
+				#{context},
+				#{createTime},
+				#{updateTime},
+				#{boardId},
+				#{pageView},
+				#{stick}
+			)
+	
+	</insert>
+	<!-- 根据分类id加载文章列表 -->
+	<select id="getArticleList" parameterType="long" resultType="com.blog.pojo.ArticleCustom">
+		SELECT
+		  <include refid="articleCustomList" ></include>
+		FROM
+			article
+		LEFT JOIN board ON board.id = article.boardId
+		WHERE
+			board.id = #{boardId}
+			ORDER BY
+			article.updateTime DESC
+	</select>
+	<!-- 删除文章 -->
+	<delete id="deleteArticle" parameterType="java.util.List">
+		DELETE article,
+		 article_tag,
+		 revert
+		FROM
+			(
+				(
+					article
+					LEFT JOIN article_tag ON article.id = article_tag.articleId
+				)
+				LEFT JOIN revert ON article.id = revert.articleId
+			)
+		WHERE
+			article.id in
+			<foreach item="id" collection="list" open="(" close=")" separator=",">
+			 #{id}
+			 </foreach>
+	</delete>
+	<!-- 更新文章信息 -->
+	<update id="updateArticle" parameterType="com.blog.pojo.Article">
+		UPDATE article
+			<trim prefix="set" suffixOverrides=",">
+				<if test="title != null">title=#{title},</if>
+				<if test="imageUrl != null">imageUrl=#{imageUrl},</if>
+				<if test="context != null">context=#{context},</if>
+				<if test="updateTime != null">updateTime=#{updateTime},</if>
+				<if test="boardId != null">boardId=#{boardId},</if>
+				<if test="stick != null">stick=#{stick},</if>
+			</trim>
+			WHERE
+				id = #{id}
+	</update>
+	<!-- 根据文章id获取文章信息 -->
+	<select id="getArticleById" parameterType="string" resultType="com.blog.pojo.Article">
+		SELECT
+			<include refid="articleList"></include>
+		FROM
+			article
+		WHERE
+			id = #{id}
+	</select>
+	
+	<!-- 获取所有置顶文章 -->
+	<select id="getStickArticles" resultType="com.blog.pojo.Article">
+		SELECT
+			<include refid="articleList"></include>
+		FROM
+			article
+		WHERE
+			stick = 1
+	</select>
+	<!-- 获取最新文章 -->
+	<select id="getNewArticles" resultType="com.blog.pojo.ArticleCustom">
+		SELECT
+			<include refid="articleCustomList" ></include>
+		FROM
+			article
+		LEFT JOIN board ON article.boardId = board.id
+		ORDER BY
+			article.updateTime DESC
+	</select>
+	
+	<!-- 获取浏览量最高的五篇文章 -->
+	<select id="getHotArticles" resultType="com.blog.pojo.ArticleCustom">
+		SELECT
+			<include refid="articleCustomList" ></include>
+		FROM
+			article
+		LEFT JOIN board ON article.boardId = board.id
+		ORDER BY
+			article.pageView DESC
+		LIMIT 0,
+		 4
+	</select>
+	<!-- 获取文章及板块信息 -->
+	<select id="getArticle" parameterType="string" resultType="com.blog.pojo.ArticleCustom">
+		SELECT
+			<include refid="articleCustomList" ></include>
+		FROM
+			article LEFT JOIN board ON article.boardId=board.id
+		WHERE
+			article.id=#{id}
+	</select>
+	<!-- 浏览量+1 -->
+	<update id="updateArticlePageView" parameterType="string">
+		UPDATE article
+		SET pageView = pageView+1
+		WHERE
+			id=#{id}
+	</update>
+	<!-- 根据标签id获取文章列表 -->
+	<select id="getArticlesByTagId" parameterType="long" resultType="com.blog.pojo.ArticleCustom">
+	SELECT
+		article.id,article.title,article.boardId,article.context,article.revertNum,article.createTime,article.imageUrl,article.pageView,article.stick,article.updateTime,boardName
+	FROM
+		article_tag
+	LEFT JOIN (
+		SELECT
+		<include refid="articleCustomList" ></include>
+		FROM
+			article
+		LEFT JOIN board ON article.boardId = board.id
+	) article ON article_tag.articleId = article.id
+	WHERE
+		article_tag.tagId = #{id}
+		ORDER BY
+			article.updateTime DESC
+	</select>
+	
+	<!-- 搜索文章 -->
+	<select id="searchArticle" resultType="com.blog.pojo.ArticleCustom">
+		SELECT
+			<include refid="articleCustomList" ></include>
+		FROM
+			article
+		LEFT JOIN board ON article.boardId = board.id
+		WHERE article.title LIKE "%"#{searName}"%"
+		ORDER BY
+			article.updateTime DESC
+	</select>
+	<!-- 评论数+1 -->
+	<update id="updateRevertNum" parameterType="string">
+		UPDATE article
+			SET revertNum = revertNum+1
+			WHERE
+				id=#{id}
+	</update>
+</mapper>

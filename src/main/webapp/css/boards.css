@@ -1,0 +1,82 @@
+#boards{
+	display: block;
+	width: 260px;
+	height: 80px;
+	overflow: hidden;
+	float: left;
+	margin-bottom: 20px;
+}
+.post h5{
+	margin-bottom: 10px;
+}
+#boards img{
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	float: left;
+}
+#boards:hover img{
+	opacity:0.7;
+}
+#boards #title{
+	display: block;
+	line-height: 30px;
+	float: left;
+	width: 170px;
+	font-size: 17px;
+	font-weight: bold;
+	margin-top: 5px;
+	margin-left: 10px;
+	color:#ff9000;
+}
+#boards:hover #title{
+	color:#f04848;
+}
+#boards #num,#boards #abs{
+	display: block;
+	line-height: 20px;
+	float: left;
+	width: 170px;
+	font-size: 13px;
+	margin-left: 10px;
+	color:black;
+}
+@media only screen and (max-width: 900px){
+		#boards #num,#boards #abs{
+			display: none;
+		}
+		#boards #title {
+		    display: block;
+		    font-size: 12px;
+		    color: #ff9000;
+		    line-height: 20px;
+		    width: 100%;
+		    margin-top: 0;
+		    margin: auto;
+		    text-align: center;
+		    color: #737272;
+		    float: none;
+		    font-weight: normal;
+		}
+		#boards img {
+			display:block;
+		    width: 50px;
+		    height: 50px;
+		    border-radius: 50%;
+		    margin: auto;
+		    float: none;
+		}
+		#boards {
+		    display: block;
+		    width: 25%;
+		    height: 80px;
+		    overflow: hidden;
+		    float: left;
+		    margin-bottom: 0px;
+		    text-align: center;
+		}
+		.post h5{
+			font-size: 0.675em;
+			color: #6b6a6a;
+		}
+}

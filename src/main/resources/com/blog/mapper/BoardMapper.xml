@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blog.mapper.BoardMapper">
+	<!--子分类sql片段  -->
+	<sql id="childBoardList">
+		id,
+		name,
+		abs,
+		image
+	</sql>
+
+	<!-- 获取父分类 -->
+	<select id="getBoardParent" resultType="com.blog.pojo.Board">
+		SELECT
+		  id,
+			name
+		FROM
+			board
+		WHERE
+			parentId = 0
+	</select>
+	
+	<!-- 根据一级分类id获取二级分类 -->
+	<select id="getchildBoard" parameterType="string" resultType="com.blog.pojo.Board">
+		SELECT
+		  <include refid="childBoardList"></include>
+		FROM
+			board
+		WHERE
+			parentId = #{parentId}
+	</select>
+	<!-- 添加分类 -->
+	<insert id="addBoard" parameterType="com.blog.pojo.Board">
+		INSERT INTO board (parentId, NAME, abs, image)
+			VALUES
+				(#{parentId}, #{name}, #{abs}, #{image});
+	</insert>
+	<!-- 根据父id计算子分类数量 -->
+	<select id="getBoardCount" parameterType="long" resultType="java.lang.Long">
+		SELECT COUNT(*) from board WHERE parentId=#{parentId}
+	</select>
+	
+	<select id="getBoardById" parameterType="long" resultType="com.blog.pojo.Board">
+		SELECT
+			<include refid="childBoardList"></include>
+		FROM
+			board
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="updateBoard" parameterType="com.blog.pojo.Board">
+		UPDATE board
+		SET name = #{name},
+		 abs = #{abs},
+		 image = #{image}
+		WHERE
+			id = #{id}
+	</update>
+	<!-- 删除子分类 -->
+	<delete id="deleteChildBoard" parameterType="java.util.List">
+		DELETE article,
+		 board,
+		 revert
+		FROM
+			(
+				(
+					board
+					LEFT JOIN article ON board.id = article.boardId
+				)
+				LEFT JOIN revert ON article.id = revert.articleId
+			)
+		WHERE
+			board.id in
+			<foreach item="id" collection="list" open="(" close=")" separator=",">
+			 #{id}
+			 </foreach>
+	</delete>
+	<!-- 删除一级分类 -->
+	<delete id="deleteParentBoard" parameterType="long">
+		DELETE
+		FROM
+			board
+		where
+			id=#{id}
+	</delete>
+	<!-- 根据子分类id获取该子分类所属父分类下所有分类 -->
+	<select id="getChildBoardsById" parameterType="long" resultType="com.blog.pojo.Board">
+		SELECT
+			b1.id,
+			b1.parentId,
+			b1.`name`,
+			b1.abs,
+			b1.image
+		FROM
+			board b1
+		INNER JOIN (
+			SELECT
+				parentId,
+				id
+			FROM
+				board
+			WHERE
+				id = #{id}
+		) b2 ON b1.parentId = b2.parentId
+	</select>
+	<!-- 获取该分类下文章的数量 -->
+	<select id="getCountArticleByBoard" parameterType="long" resultType="long">
+		SELECT
+		 count(*)
+		FROM
+			article
+		WHERE
+			boardId = #{boardId}
+	</select>
+</mapper>

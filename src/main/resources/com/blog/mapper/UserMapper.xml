@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blog.mapper.UserMapper">
+
+
+	<!-- 查询所有用户信息 -->
+	<select id="getUsers" resultType="com.blog.pojo.User">
+		SELECT
+		id,
+		nickname,
+		phone,
+		image,
+		createtime
+	FROM
+		USER;
+	</select>
+	
+	
+	<!-- 删除用户 -->
+	<delete id="deleteUser" parameterType="long">
+		DELETE
+		FROM
+			user
+		WHERE
+			id = #{id}
+	</delete>
+	
+	
+	<!-- 批量删除用户 -->
+	<delete id="deleteUsers" parameterType="long">
+		delete from user where id in 
+			<foreach collection="list" open="(" close=")" separator="," item="id">
+		#{id}
+		</foreach>
+	</delete>
+	
+	<select id="getUserByPhone" parameterType="string" resultType="com.blog.pojo.User">
+		SELECT
+			id,
+		nickname,
+		phone,
+		image,
+		password,
+		createtime
+		FROM
+			`user`
+		WHERE
+			phone = #{phone}
+	</select>
+	
+	<select id="getUserRoleByPhone" parameterType="string" resultType="string">
+		SELECT
+			user_role.roleName
+		FROM
+			`user`
+		LEFT JOIN (
+			SELECT
+				user_role.userId,
+				role.roleName
+			FROM
+				user_role
+			LEFT JOIN role ON user_role.roleId = role.id
+		) user_role ON `user`.id = user_role.userId WHERE `user`.phone=#{phone}
+	</select>
+	<!-- 添加用户 -->
+	<insert id="addUser" parameterType="com.blog.pojo.User" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `user` (
+			nickname,
+			`password`,
+			phone,
+			image,
+			createtime
+		)
+		VALUES
+			(
+				#{nickname},
+				#{password},
+				#{phone},
+				#{image},
+				#{createtime}
+			)
+	</insert>
+	<!-- 添加角色信息 -->
+	<insert id="addUser_role" parameterType="long">
+		INSERT INTO user_role (userId, roleId)
+			VALUES
+				(#{userId}, 2)
+	</insert>
+	
+	<select id="getUserByNickName" parameterType="string" resultType="com.blog.pojo.User">
+		SELECT
+			id,
+		nickname,
+		phone,
+		image,
+		createtime
+		FROM
+			`user`
+		WHERE
+			nickname = #{nickname}
+	</select>
+</mapper>
