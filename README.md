@@ -1,7 +1,7 @@
 ## 个人博客系统
 在家养伤无聊开发的个人博客系统
 基本功能已完善,剩余其他功能还在开发中......
-[Demo展示](http://47.104.251.24/)
+[Demo展示](http://www.yinpengfei.com)
 ## 使用技术：
 1. Maven + Git项目管理
 2. SSM架构（Spring SpringMVC Mybatis）

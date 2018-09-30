@@ -115,7 +115,7 @@
 						            callBack: function (num) {
 						            	newPage=num;
 									if(newPage!=page){
-										getNewArticles(newPage);
+										getNewArticles(newPage,id);
 									}
 						            }
 						        });
